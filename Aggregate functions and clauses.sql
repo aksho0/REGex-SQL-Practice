@@ -48,6 +48,25 @@ select count(name), governmentform from country where capital > 30 group by gove
 -- get the total countries fro each govt firm only for the countries having their capital > 30 and total population > 3 00 000
 select count(name), governmentform from country where capital > 30 group by governmentform having sum(population) > 30;
 
+-- Conditional statement 
+-- In SQL we use 'CASE-WHEN-END'
+/*
+Syntax:
+CASE 
+WHEN col_name condition THEN action
+WHEN col_name condition THEN action
+END
+*/
+
+select name, population, 
+case
+	when population > 100000 then 'large population'
+	when population >= 50000 then 'medium population'
+	when population >= 8000 then 'small population'
+	else 'very small populaiton'
+end as meta_data
+ from country;
+
 
 
 
