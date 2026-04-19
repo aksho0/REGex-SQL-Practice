@@ -66,17 +66,17 @@ INSERT INTO employees VALUES
 
 select * from employees;
 
--- Inner Join : Returns the common rows 
+-- 1. Inner Join : Returns the common rows 
 select cs.customer_id, cs.name, ods.order_id, ods.order_amount from customers as cs
 inner join orders as ods
 on cs.customer_id = ods.customer_id;
 
--- Left Outer Join : Returns the uniuqe elements from left table
+-- 2. Left Outer Join : Returns the uniuqe elements from left table
 select cs.customer_id, cs.name, ods.order_id, ods.order_amount from customers as cs
 left join orders as ods
 on cs.customer_id = ods.customer_id;
 
--- Right Outer Join : Returns the uniuqe elements from right table
+-- 3. Right Outer Join : Returns the uniuqe elements from right table
 select cs.customer_id, cs.name, ods.order_id, ods.order_amount from customers as cs
 right join orders as ods
 on cs.customer_id = ods.customer_id;
@@ -106,15 +106,21 @@ inner join orders as ods
 on cs.customer_id = ods.customer_id
 where cs.customer_id >= 3;
 
--- Eid  Name     salary   mid
--- 4    Aksihta  1000000  175 
-
--- Self Join : A self join is a regular JOIN operation that joins a table to itself, 
--- treating the single table as two separate entities. 
--- This technique is used to compare or combine rows within the same table, 
--- particularly for handling hierarchical data or identifying relationships among related records. 
+-- 4. Self Join : A self join is a regular JOIN operation that joins a table to itself, 
+-- 			treating the single table as two separate entities. 
+-- 			This technique is used to compare or combine rows within the same table, 
+-- 			particularly for handling hierarchical data or identifying relationships among related records. 
 
 -- Example:  
-select e.eid, e.ename, m.manager_id from employees as e
+select e.eid, e.ename, e.manager_id, m.ename from employees as e
 join employees as m
-where m.eid = e.manager_id;
+where e.manager_id = m.eid;
+
+-- 5. Cross/Cartesian Join : This means that every row from the first table is combined with every row from the second table, 
+-- 						creating all possible combinations of rows (m x n).
+select * from customers cross join orders;
+
+-- 6. Natural Join : works as inner join, it automatically join two or more tables according to the common coloum name
+-- 					if there is no common coloumn name then  it acts as cross join
+-- 					even when the coloumn is foreign key, if name doesn't match, it will not work properly
+select * from customers natural join orders;
